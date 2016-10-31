@@ -57,7 +57,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DuLieuView
             public void onClick(View view) {
                 Intent in = new Intent(mContext, ThongTinActivity.class);in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 in.putExtra("content",mDulieus.get(position).getContent());
-
                 in.putExtra("title",mDulieus.get(position).getTitle());
                 in.putExtra("url",mDulieus.get(position).getUrl());
                 mContext.startActivity(in);
@@ -70,8 +69,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DuLieuView
     public int getItemCount() {
         return mDulieus.size();
     }
-
-
 
 
     public static class DuLieuViewHolder extends RecyclerView.ViewHolder

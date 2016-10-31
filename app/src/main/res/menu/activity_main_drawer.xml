@@ -4,33 +4,25 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Home" />
-        <item
-            android:id="@+id/nav_login"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Đăng nhập" />
+
 
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Ảnh Tháng ">
         <menu>
             <item
-                android:id="@+id/nav_thang6"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Tháng 6" />
-            <item
                 android:id="@+id/nav_thang7"
-                android:icon="@drawable/ic_menu_send"
                 android:title="Tháng 7" />
             <item
                 android:id="@+id/nav_thang8"
-                android:icon="@drawable/ic_menu_send"
                 android:title="Tháng 8" />
             <item
                 android:id="@+id/nav_thang9"
-                android:icon="@drawable/ic_menu_send"
                 android:title="Tháng 9" />
+            <item
+                android:id="@+id/nav_thang10"
+                android:title="Tháng 10" />
 
         </menu>
     </item>

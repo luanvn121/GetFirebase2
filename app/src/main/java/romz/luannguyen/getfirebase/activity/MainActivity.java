@@ -1,9 +1,9 @@
 package romz.luannguyen.getfirebase.activity;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -26,6 +25,8 @@ import java.util.ArrayList;
 
 import romz.luannguyen.getfirebase.R;
 import romz.luannguyen.getfirebase.adapter.CustomAdapter;
+import romz.luannguyen.getfirebase.fragment.Thang7Fragment;
+import romz.luannguyen.getfirebase.fragment.Thang8Fragment;
 import romz.luannguyen.getfirebase.model.DuLieu;
 
 public class MainActivity extends AppCompatActivity
@@ -44,42 +45,37 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         Firebase.setAndroidContext(this);
 
-        mRecyclerView= (RecyclerView)findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
 
         root = new Firebase("https://kitestquocte.firebaseio.com/2016/6");
-        if (isNetworkAvailable(this)) {
-            // code here
-            Toast.makeText(MainActivity.this, "Connect", Toast.LENGTH_SHORT).show();
-        } else {
-            // code
-            Toast.makeText(MainActivity.this, "NotConnect", Toast.LENGTH_SHORT).show();
 
-        }
+//        if (isNetworkAvailable(this)) {
+//            // code here
+//            Toast.makeText(MainActivity.this, "Connect", Toast.LENGTH_SHORT).show();
+//        } else {
+//            // code
+//            Toast.makeText(MainActivity.this, "NotConnect", Toast.LENGTH_SHORT).show();
+//
+//        }
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.d("Tag", "onChildAdded: "+dataSnapshot.getKey().toString());
+                Log.d("Tag", "onChildAdded: " + dataSnapshot.getKey().toString());
 
-                /*DataObject post = dataSnapshot.getChildren(DataObject.class);
-                mang.add(post);
-                customAdapter = new CustomAdapter(getApplicationContext(),mang);
-                lvDs.setAdapter(customAdapter);*/
 
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Log.d("child", "onDataChange: "+child.getValue().toString());
+                    Log.d("child", "onDataChange: " + child.getValue().toString());
 
-                    /*  DataObject post = dataSnapshot.getValue(DataObject.class);
-                       mang.add(post);*/
 
-                    DuLieu post=new DuLieu();
+                    DuLieu post = new DuLieu();
                     post.setContent(child.getValue(DuLieu.class).getContent());
                     post.setTitle(child.getValue(DuLieu.class).getTitle());
                     post.setUrl(child.getValue(DuLieu.class).getUrl());
                     mDulieu.add(post);
                 }
-                customAdapter = new CustomAdapter(getApplicationContext(),mDulieu);
-                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(),2);
+                customAdapter = new CustomAdapter(getApplicationContext(), mDulieu);
+                RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
                 mRecyclerView.setLayoutManager(mLayoutManager);
                 mRecyclerView.setItemAnimator(new DefaultItemAnimator());
                 mRecyclerView.setAdapter(customAdapter);
@@ -103,10 +99,10 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private boolean isNetworkAvailable(final Context context) {
-        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
-        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
-    }
+//    private boolean isNetworkAvailable(final Context context) {
+//        final ConnectivityManager connectivityManager = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE));
+//        return connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isConnected();
+//    }
 
     private void addControl() {
 
@@ -151,21 +147,32 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
-        } else if (id == R.id.nav_login) {
-
-        } else if (id == R.id.nav_thang6) {
+            Intent homeIntent = new Intent(this, MainActivity.class);
+            homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
 
         } else if (id == R.id.nav_thang7) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fram, new Thang7Fragment()).commit();
 
         } else if (id == R.id.nav_thang8) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fram, new Thang8Fragment()).commit();
 
         } else if (id == R.id.nav_thang9) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fram, new Thang8Fragment()).commit();
 
+        } else if (id == R.id.nav_thang10) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fram, new Thang8Fragment()).commit();
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+            return true;
+        }
 }
