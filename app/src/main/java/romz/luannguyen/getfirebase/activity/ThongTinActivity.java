@@ -75,7 +75,7 @@ public class ThongTinActivity extends AppCompatActivity {
         imvHinh = (ImageView)findViewById(R.id.imvHinh);
 
         Intent intt = getIntent();
-        Log.d("---rom---","sai roi");
+        Log.d("---rom---","B=========>");
 
         String imvhinh = intt.getStringExtra("url");
         String content=intt.getStringExtra("content");
